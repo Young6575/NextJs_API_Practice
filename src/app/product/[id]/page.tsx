@@ -33,6 +33,7 @@ export default async function ProductId({params} : ProductIdProps) {
             name={product.name}
             description={product.description}
             price={product.price}
+            subt={"처음으로"}
         />
     </div>
   );

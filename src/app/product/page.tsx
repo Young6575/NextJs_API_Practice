@@ -25,10 +25,14 @@ export default async function allProducts() {
     
     <div>
         <div className='flex justify-between'>
-            <div>상품목록</div>
-            <div>홈으로</div>
+            <div className='text-3xl font-bold'>상품목록</div>
+            <Link href={"/"}>
+            <div className='flex items-center bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
+                홈으로
+            </div>
+            </Link>
         </div>
-        <div className='flex '>
+        <div className='grid grid-cols-4 gap-2 '>
             {
                 products.map(item => (
                     <Link href={`/product/${item.id}`} key={item.id} >

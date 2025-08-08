@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Product } from "@/types/product";
+import item from "../../../data/product.json"
 
 //동적라우팅으로 들어오는 params의 데이터 타입
 interface ParamsProp {
