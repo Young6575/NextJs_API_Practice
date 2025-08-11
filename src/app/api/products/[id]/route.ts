@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Product } from "@/types/product";
-import item from "../../../data/product.json"
 
 //동적라우팅으로 들어오는 params의 데이터 타입
-interface ParamsProp {
-    params : {id : string}
-}
+// interface ParamsProp {
+//     params : {id : string}
+// }
 
 // CRUD를 구현할 JSON 파일 접근을 위해 필요한 모듈 추가
 import path from "path";
@@ -29,7 +28,7 @@ async function saveProduct(products: Product[]) {
 }
 
 // 데이터 조회
-export async function GET(request : NextRequest, {params} : ParamsProp ) {
+export async function GET(request : NextRequest, {params} : {params : Promise<{id : string}>} ) {
     try {
 
         const {id} = await params;
@@ -54,7 +53,7 @@ export async function GET(request : NextRequest, {params} : ParamsProp ) {
 }
 
 // 데이터 조회
-export async function PUT(request : NextRequest, {params} : ParamsProp ) {
+export async function PUT(request : NextRequest, {params} : {params : Promise<{id : string}>} ) {
     try {
         const products : Product[] = await getProducts();
         const {id} = await params;
@@ -84,7 +83,7 @@ export async function PUT(request : NextRequest, {params} : ParamsProp ) {
 }
 
 // 데이터 조회
-export async function PATCH(request : NextRequest, {params} : ParamsProp ) {
+export async function PATCH(request : NextRequest, {params} : {params : Promise<{id : string}>} ) {
     try {
         const products : Product[] = await getProducts();
         const {id} = await params;
@@ -101,7 +100,7 @@ export async function PATCH(request : NextRequest, {params} : ParamsProp ) {
         const partialData : Partial<Product> = await request.json();
 
         //전체 자료에 해당자료 수정 자료
-        products[Idx] = {...products[Idx], ...partialData};
+        products[Idx] = {...products[Idx],...partialData};
 
         // 전체 자료 저장
         await saveProduct(products);
@@ -114,7 +113,7 @@ export async function PATCH(request : NextRequest, {params} : ParamsProp ) {
 }
 
 // 데이터 조회
-export async function DELETE(request : NextRequest, {params} : ParamsProp ) {
+export async function DELETE(request : NextRequest, {params} : {params : Promise<{id : string}>} ) {
     try {
         const products : Product[] = await getProducts();
         const {id} = await params;

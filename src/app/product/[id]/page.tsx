@@ -1,11 +1,6 @@
 import TailBox from '@/component/TailBox';
-import { Product } from '@/types/product';
+import type { Product } from '@/types/product';
 import React from 'react';
-interface ProductIdProps {
-    params : {
-        id : string
-    }
-}
 
 async function getIdProduct(id: string) : Promise<Product> {
 
@@ -21,20 +16,20 @@ async function getIdProduct(id: string) : Promise<Product> {
 }
 
 
-export default async function ProductId({params} : ProductIdProps) {
-    const {id} =  params;
+export default async function ProductId({params} : {params : Promise<{id : string}>}) {
+    const {id} = await params;
 
-    const product = await getIdProduct(id);
+    const product : Product  = await getIdProduct(id);
 
     return (
     <div>
-        <TailBox 
+        {product && <TailBox 
             key={product.id}
             name={product.name}
             description={product.description}
             price={product.price}
             subt={"처음으로"}
-        />
+        />}
     </div>
   );
 }

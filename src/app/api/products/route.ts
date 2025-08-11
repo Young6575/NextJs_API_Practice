@@ -10,6 +10,7 @@ const dataPath = path.join(process.cwd(), 'src/app/data/product.json');
 
 // 데이터 조회
 export async function GET(request : NextRequest) {
+    
     try {
 
         // json 파일 불러오기
