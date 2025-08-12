@@ -1,9 +1,9 @@
-import TailBox from '@/component/TailBox';
+import TailBoxc from '@/component/ProductDetailBox';
 import type { Product } from '@/types/product';
 import React from 'react';
 
 async function getIdProduct(id: string) : Promise<Product> {
-
+    
     const res = await fetch(`http://localhost:3000/api/products/${id}`, {
         cache : 'no-store'
     });
@@ -23,12 +23,9 @@ export default async function ProductId({params} : {params : Promise<{id : strin
 
     return (
     <div>
-        {product && <TailBox 
+        {product && <TailBoxc 
             key={product.id}
-            name={product.name}
-            description={product.description}
-            price={product.price}
-            subt={"처음으로"}
+            product={product}
         />}
     </div>
   );

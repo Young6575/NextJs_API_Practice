@@ -128,7 +128,7 @@ export async function DELETE(request : NextRequest, {params} : {params : Promise
 
         // 전체 자료 저장
         await saveProduct(updateProduct);
-        return NextResponse.json({message : `정상적으로 삭제:[${id}]`}, {status : 500})
+        return NextResponse.json({message : `정상적으로 삭제:[${id}]`}, {status : 200})
 
     } catch(error) {
         console.error("파일 불러오기 오류:", error)
