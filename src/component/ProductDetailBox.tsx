@@ -37,7 +37,7 @@ export default function TailButtonc({product} : TailButtonProps) {
         
     
             <div className='grid grid-cols-3 gap-2'>
-                <Link href={`/product/edit/${product.id}`}
+                <Link href={`/product/${product.id}/edit`}
                     className='bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded'>
                     수정하기
                 </Link>

@@ -76,4 +76,3 @@ export async function POST(request : NextRequest) {
         return NextResponse.json({message : "요청오류"}, {status : 400})
     }
 }
-

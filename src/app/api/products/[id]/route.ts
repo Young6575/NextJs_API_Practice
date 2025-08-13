@@ -67,7 +67,7 @@ export async function PUT(request : NextRequest, {params} : {params : Promise<{i
         }
 
         //수정할 자료
-        const updateProduct = await request.json()
+        const updateProduct = await request.json();
 
         //전체 자료에 해당자료 수정 자료
         products[Idx] = {id : id, ...updateProduct};
