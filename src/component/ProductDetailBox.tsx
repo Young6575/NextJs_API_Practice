@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import type { Product } from '@/types/product';
+import { supabase } from '@/lib/supabase/client';
 
 interface TailButtonProps {
     product : Product
@@ -10,23 +11,43 @@ interface TailButtonProps {
 
 export default function TailButtonc({product} : TailButtonProps) {
     const router = useRouter();
+    const id = product.id;
 
     const Handeldelete = async () => {
-        if (confirm("삭제하시겠습니까?")) {
-            const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            const resp = await fetch(`${baseUrl}/api/products/${product.id}`, {
-                method : "DELETE"
-            });
-            if (resp.ok) {
-                alert("정상적으로 삭제되었습니다.");
-                router.push('/product');
-                router.refresh();
-            }
-            else {
-                const data = await resp.json();
-                alert(`삭제오류 : ${data.message || '알 수 없는 오류'}`)
-            }
+
+        const {data,error} = await supabase
+        .from('products')
+        .delete()
+        .eq('id',id)
+
+
+        if (error) {
+             alert(`삭제오류 : ${error.message || '알 수 없는 오류'}`)
         }
+
+        else {
+            alert("정상적으로 삭제되었습니다.");
+            router.push('/supaproduct');
+            router.refresh();
+        }
+
+        // if (confirm("삭제하시겠습니까?")) {
+        //     const resp = await supabase
+        //     .from('products')
+        //     .delete
+        //     .eq('id',id)
+
+
+        //     if (resp.ok) {
+        //         alert("정상적으로 삭제되었습니다.");
+        //         router.push('/product');
+        //         router.refresh();
+        //     }
+        //     else {
+        //         const data = await resp.json();
+        //         alert(`삭제오류 : ${data.message || '알 수 없는 오류'}`)
+        //     }
+        // }
     }
 
   return (            
@@ -37,7 +58,7 @@ export default function TailButtonc({product} : TailButtonProps) {
         
     
             <div className='grid grid-cols-3 gap-2'>
-                <Link href={`/product/${product.id}/edit`}
+                <Link href={`/supaproduct/${product.id}/edit`}
                     className='bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded'>
                     수정하기
                 </Link>
@@ -47,7 +68,7 @@ export default function TailButtonc({product} : TailButtonProps) {
                     삭제하기
                 </button>
 
-                <Link href={"/product"}
+                <Link href={"/supaproduct"}
                     className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
                     처음으로
                 </Link>
